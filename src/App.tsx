@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 
 import "./App.css";
-
-type TodoData = {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
-};
+import CompletedFilter from "./Components/completedFilter";
+import { Loader } from "./Components/loader";
+import SelectUserId from "./Components/selectUserId";
+import TodoList from "./Components/todoList";
+import { TodoData } from "./types";
 
 function App() {
   const [todo, setTodo] = useState<TodoData[]>([]);
   const [loading, setloading] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string>();
-  const [filterCompleted, seFilterCompleted] = useState<boolean>();
+  const [selectedUserId, setSelectedUserId] = useState<string>("");
+  const [filterCompleted, seFilterCompleted] = useState<boolean>(false);
 
   async function fetchData() {
     setloading(true);
@@ -28,18 +26,17 @@ function App() {
   }, []);
 
   const filteredList = (item: TodoData) => {
-    if (filterCompleted && selected) {
+    if (filterCompleted && selectedUserId) {
       console.log("perchè non ci entra");
 
-      return Number(item.userId) === Number(selected) && item.completed;
+      return Number(item.userId) === Number(selectedUserId) && item.completed;
     }
 
     if (filterCompleted) {
       return item.completed;
     }
-    if (selected) {
-      //console.log("mimi", item.userId, selected, item.userId === selected);
-      return Number(item.userId) === Number(selected);
+    if (selectedUserId) {
+      return Number(item.userId) === Number(selectedUserId);
     }
 
     return true;
@@ -47,29 +44,26 @@ function App() {
 
   return (
     <div className="App">
-      completati
-      <input
-        type="checkbox"
-        defaultChecked={filterCompleted}
-        onChange={() => seFilterCompleted(!filterCompleted)}
+      <CompletedFilter
+        filterCompleted={filterCompleted}
+        seFilterCompleted={seFilterCompleted}
       />
-      <select value={selected} onChange={(e) => setSelected(e.target.value)}>
-        <option value=""></option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
+      <SelectUserId
+        selectedUserId={selectedUserId}
+        setSelectedUserId={setSelectedUserId}
+      />
       {loading ? (
-        <div>loading</div>
+        <Loader />
       ) : (
         todo
           .filter((item) => filteredList(item))
           .map((item) => (
-            <div key={item.id} style={{ display: "flex" }}>
-              <div>{item.userId}</div>
-              <div>{`${item.title}   `} </div>
-              <div>{item.completed ? "FATTO" : "DAFARE"}</div>
-            </div>
+            <TodoList todo={item} />
+            // <div key={item.id} style={{ display: "flex" }}>
+            //   <div>{item.userId}</div>
+            //   <div>{`${item.title}   `} </div>
+            //   <div>{item.completed ? "FATTO" : "DAFARE"}</div>
+            // </div>
           ))
       )}
     </div>
