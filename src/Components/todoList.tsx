@@ -22,7 +22,7 @@ const TodoList: FunctionComponent<TodoListProps> = ({ filteredData }) => {
   const pageCount = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
 
   return (
-    <Container>
+    <Container className="todolist">
       <TitleContainer>
         <Title flexNumber={1} style={{ marginLeft: "5%" }}>
           USER ID
@@ -45,9 +45,9 @@ const TodoList: FunctionComponent<TodoListProps> = ({ filteredData }) => {
         </Todo>
       ))}
       <ReactPaginate
-        marginPagesDisplayed={width < 700 ? 1 : 4}
-        nextLabel={<FaChevronCircleRight size={"20px"} />}
+        marginPagesDisplayed={width < 700 ? 1 : 3}
         breakLabel={width > 700 ? "..." : null}
+        nextLabel={<FaChevronCircleRight size={"20px"} />}
         previousLabel={<FaChevronCircleLeft size={"20px"} />}
         pageCount={pageCount}
         onPageChange={({ selected: selectedPage }) =>
@@ -70,7 +70,6 @@ export default TodoList;
 
 const Container = styled.div`
   background-color: #f4f4f4;
-  margin: 30px;
 `;
 const TitleContainer = styled.div`
   margin-top: 10px;
