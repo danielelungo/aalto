@@ -1,4 +1,6 @@
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
+import styled from "styled-components";
+import { Title } from "../Css/commonStyledComponents";
 
 interface SelectUserIdProps {
   selectedUserId: string;
@@ -10,25 +12,35 @@ const SelectUserId: FunctionComponent<SelectUserIdProps> = ({
   setSelectedUserId,
 }) => {
   return (
-    <div>
-      <select
+    <Container>
+      <Title>SELECT USER ID</Title>
+      <Select
         value={selectedUserId}
         onChange={(e) => setSelectedUserId(e.target.value)}
       >
         <option value=""></option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </select>
-    </div>
+        <option value="1">USER ID : 1</option>
+        <option value="2">USER ID : 2</option>
+        <option value="3">USER ID : 3</option>
+        <option value="4">USER ID : 4</option>
+        <option value="5">USER ID : 5</option>
+        <option value="6">USER ID : 6</option>
+        <option value="7">USER ID : 7</option>
+        <option value="8">USER ID : 8</option>
+        <option value="9">USER ID : 9</option>
+        <option value="10">USER ID : 10</option>
+      </Select>
+    </Container>
   );
 };
 
 export default SelectUserId;
+
+const Container = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+`;
+
+const Select = styled.select`
+  text-align: center;
+`;
