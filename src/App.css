@@ -3,6 +3,11 @@
   pointer-events: none;
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -60,9 +65,17 @@
     margin: 50px;
     justify-content: center;
   }
-  .todolist {
+  .todolist,
+  .notFound {
     margin-left: 30px;
   }
+}
+.footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .header,
