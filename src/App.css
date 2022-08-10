@@ -28,6 +28,38 @@
   color: #61dafb;
 }
 
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
+  font-size: 1.2rem;
+  gap: 5px;
+}
+
+.pagination .page-num {
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.pagination-disabled:hover {
+  cursor: default;
+}
+
+.pagination-disabled {
+  color: rgb(198, 197, 202);
+}
+.page-num:not(.pagination-disabled):hover {
+  background-color: #60c3eb;
+  color: white;
+}
+
+.pagination .active {
+  background-color: #003479;
+  color: white;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
