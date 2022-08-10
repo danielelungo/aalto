@@ -93,7 +93,7 @@ function App() {
         ) : filterData.length ? (
           <TodoList filteredData={filterData} />
         ) : (
-          <div>Nessun risultato</div>
+          <NotFound className="notFound">No results found</NotFound>
         )}
       </div>
       <Footer className="footer">
@@ -117,10 +117,12 @@ const ResetFilterButton = styled.h4`
   cursor: pointer;
   color: #003479;
   text-align: center;
+  padding-bottom: 10px;
 `;
 
 const FilterContainer = styled.div`
   background-color: #f4f4f4;
+  height: 100%;
 `;
 
 const Header = styled.div`
@@ -134,4 +136,9 @@ const Footer = styled.div`
   font-size: 0.7rem;
   justify-content: center;
   align-items: center;
+`;
+const NotFound = styled.div`
+  font-size: 3rem;
+  color: #003479;
+  text-align: center;
 `;
