@@ -68,8 +68,9 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div>
+    <>
+      <Header className="header" />
+      <div className="App">
         <FilterContainer>
           <Title>FILTERS</Title>
           <SearchBar
@@ -95,7 +96,12 @@ function App() {
           <div>Nessun risultato</div>
         )}
       </div>
-    </div>
+      <Footer className="footer">
+        Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod
+        tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrum exercitationem ullamco
+      </Footer>
+    </>
   );
 }
 
@@ -103,14 +109,29 @@ export default App;
 
 const Title = styled.h2`
   color: #003479;
+  text-align: center;
 `;
 
 const ResetFilterButton = styled.h4`
   text-decoration: underline;
   cursor: pointer;
   color: #003479;
+  text-align: center;
 `;
 
 const FilterContainer = styled.div`
   background-color: #f4f4f4;
+`;
+
+const Header = styled.div`
+  background-color: #644c79;
+`;
+
+const Footer = styled.div`
+  display: flex;
+  background-color: #003479;
+  color: white;
+  font-size: 0.7rem;
+  justify-content: center;
+  align-items: center;
 `;
