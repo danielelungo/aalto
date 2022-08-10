@@ -1,6 +1,7 @@
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import styled from "styled-components";
 import { Title } from "../Css/commonStyledComponents";
+import Switch from "./UI/switch/switch";
 
 interface CompletedFilterProps {
   filterCompleted: boolean;
@@ -14,10 +15,10 @@ const CompletedFilter: FunctionComponent<CompletedFilterProps> = ({
   return (
     <Container>
       <Title>COMPLETED</Title>
-      <input
-        type="checkbox"
-        checked={filterCompleted}
-        onChange={() => seFilterCompleted((p) => !p)}
+      <Switch
+        onColor="#644c79"
+        isOn={filterCompleted}
+        handleToggle={() => seFilterCompleted((p) => !p)}
       />
     </Container>
   );
