@@ -6,6 +6,7 @@ import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import "../App.css";
+import useWindowDimensions from "../Hooks/useWindowDimensions";
 
 interface TodoListProps {
   filteredData: TodoData[];
@@ -14,6 +15,7 @@ interface TodoListProps {
 const ITEMS_PER_PAGE = 5;
 
 const TodoList: FunctionComponent<TodoListProps> = ({ filteredData }) => {
+  const { width } = useWindowDimensions();
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   const offset = currentPage * ITEMS_PER_PAGE;
@@ -28,9 +30,24 @@ const TodoList: FunctionComponent<TodoListProps> = ({ filteredData }) => {
         <Title flexNumber={4}>TITLE</Title>
         <Title flexNumber={1}>COMPLETED</Title>
       </TitleContainer>
+
+      {filteredData.slice(offset, offset + ITEMS_PER_PAGE).map((todo) => (
+        <Todo key={todo.id}>
+          <UserId>{todo.userId}</UserId>
+          <Text>{todo.title} </Text>
+          <Completed>
+            {todo.completed ? (
+              <AiOutlineCheck color="#60C3EB" size={"30px"} />
+            ) : (
+              <AiOutlineClose color="#60C3EB" size={"30px"} />
+            )}
+          </Completed>
+        </Todo>
+      ))}
       <ReactPaginate
+        marginPagesDisplayed={width < 700 ? 1 : 4}
         nextLabel={<FaChevronCircleRight size={"20px"} />}
-        breakLabel="..."
+        breakLabel={width > 700 ? "..." : null}
         previousLabel={<FaChevronCircleLeft size={"20px"} />}
         pageCount={pageCount}
         onPageChange={({ selected: selectedPage }) =>
@@ -45,19 +62,6 @@ const TodoList: FunctionComponent<TodoListProps> = ({ filteredData }) => {
         activeLinkClassName="active"
         disabledClassName="pagination-disabled"
       />
-      {filteredData.slice(offset, offset + ITEMS_PER_PAGE).map((todo) => (
-        <Todo key={todo.id}>
-          <UserId>{todo.userId}</UserId>
-          <Text>{todo.title} </Text>
-          <Completed>
-            {todo.completed ? (
-              <AiOutlineCheck color="#60C3EB" size={"30px"} />
-            ) : (
-              <AiOutlineClose color="#60C3EB" size={"30px"} />
-            )}
-          </Completed>
-        </Todo>
-      ))}
     </Container>
   );
 };
