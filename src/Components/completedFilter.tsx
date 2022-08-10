@@ -1,4 +1,6 @@
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
+import styled from "styled-components";
+import { Title } from "../Css/commonStyledComponents";
 
 interface CompletedFilterProps {
   filterCompleted: boolean;
@@ -10,15 +12,20 @@ const CompletedFilter: FunctionComponent<CompletedFilterProps> = ({
   seFilterCompleted,
 }) => {
   return (
-    <div>
-      <h1>completati</h1>
+    <Container>
+      <Title>COMPLETED</Title>
       <input
         type="checkbox"
-        defaultChecked={filterCompleted}
-        onChange={() => seFilterCompleted(!filterCompleted)}
+        checked={filterCompleted}
+        onChange={() => seFilterCompleted((p) => !p)}
       />
-    </div>
+    </Container>
   );
 };
 
 export default CompletedFilter;
+
+const Container = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+`;
