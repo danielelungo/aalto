@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-
+import { FormEvent, useEffect, useState } from "react";
+import styled from "styled-components";
 import "./App.css";
 import CompletedFilter from "./Components/completedFilter";
 import { Loader } from "./Components/loader";
+import SearchBar from "./Components/searchBar";
 import SelectUserId from "./Components/selectUserId";
 import TodoList from "./Components/todoList";
 import { TodoData } from "./types";
@@ -12,6 +13,8 @@ function App() {
   const [loading, setloading] = useState<boolean>(false);
   const [selectedUserId, setSelectedUserId] = useState<string>("");
   const [filterCompleted, seFilterCompleted] = useState<boolean>(false);
+  const [filterData, setFilterData] = useState<TodoData[]>([]);
+  const [inputValue, setInputValue] = useState<string>("");
 
   async function fetchData() {
     setloading(true);
@@ -25,25 +28,48 @@ function App() {
     fetchData();
   }, []);
 
-  const filteredList = (item: TodoData) => {
-    if (filterCompleted && selectedUserId) {
-      console.log("perchè non ci entra");
+  const onSearch = (e: FormEvent) => {
+    e.preventDefault();
+    setTodo(todo.filter((item) => item.title.includes(inputValue)));
+  };
 
-      return Number(item.userId) === Number(selectedUserId) && item.completed;
+  useEffect(() => {
+    if (!filterCompleted && !selectedUserId) {
+      setFilterData(todo);
     }
 
     if (filterCompleted) {
-      return item.completed;
-    }
-    if (selectedUserId) {
-      return Number(item.userId) === Number(selectedUserId);
+      setFilterData(todo.filter((item) => item.completed));
     }
 
-    return true;
+    if (selectedUserId) {
+      setFilterData(
+        todo.filter((item) => Number(item.userId) === Number(selectedUserId))
+      );
+    }
+
+    if (filterCompleted && selectedUserId) {
+      setFilterData(
+        todo.filter(
+          (item) =>
+            Number(item.userId) === Number(selectedUserId) && item.completed
+        )
+      );
+      console.log(filterData);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterCompleted, selectedUserId, todo]);
+
+  const onReset = () => {
+    fetchData();
+    setInputValue("");
+    seFilterCompleted(false);
+    setSelectedUserId("");
   };
 
   return (
     <div className="App">
+      <ResetFilterButton onClick={onReset}>Reset filters</ResetFilterButton>
       <CompletedFilter
         filterCompleted={filterCompleted}
         seFilterCompleted={seFilterCompleted}
@@ -52,22 +78,25 @@ function App() {
         selectedUserId={selectedUserId}
         setSelectedUserId={setSelectedUserId}
       />
+      <SearchBar
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        onSearch={onSearch}
+      />
       {loading ? (
         <Loader />
+      ) : filterData.length ? (
+        filterData.map((item) => <TodoList todo={item} key={item.id} />)
       ) : (
-        todo
-          .filter((item) => filteredList(item))
-          .map((item) => (
-            <TodoList todo={item} />
-            // <div key={item.id} style={{ display: "flex" }}>
-            //   <div>{item.userId}</div>
-            //   <div>{`${item.title}   `} </div>
-            //   <div>{item.completed ? "FATTO" : "DAFARE"}</div>
-            // </div>
-          ))
+        <div>Nessun risultato</div>
       )}
     </div>
   );
 }
 
 export default App;
+
+const ResetFilterButton = styled.h1`
+  text-decoration: underline;
+  cursor: pointer;
+`;
