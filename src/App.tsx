@@ -69,34 +69,48 @@ function App() {
 
   return (
     <div className="App">
-      <ResetFilterButton onClick={onReset}>Reset filters</ResetFilterButton>
-      <CompletedFilter
-        filterCompleted={filterCompleted}
-        seFilterCompleted={seFilterCompleted}
-      />
-      <SelectUserId
-        selectedUserId={selectedUserId}
-        setSelectedUserId={setSelectedUserId}
-      />
-      <SearchBar
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        onSearch={onSearch}
-      />
-      {loading ? (
-        <Loader />
-      ) : filterData.length ? (
-        filterData.map((item) => <TodoList todo={item} key={item.id} />)
-      ) : (
-        <div>Nessun risultato</div>
-      )}
+      <div>
+        <FilterContainer>
+          <Title>FILTERS</Title>
+          <SearchBar
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            onSearch={onSearch}
+          />
+          <CompletedFilter
+            filterCompleted={filterCompleted}
+            seFilterCompleted={seFilterCompleted}
+          />
+          <SelectUserId
+            selectedUserId={selectedUserId}
+            setSelectedUserId={setSelectedUserId}
+          />
+          <ResetFilterButton onClick={onReset}>Reset filters</ResetFilterButton>
+        </FilterContainer>
+        {loading ? (
+          <Loader />
+        ) : filterData.length ? (
+          <TodoList filteredData={filterData} />
+        ) : (
+          <div>Nessun risultato</div>
+        )}
+      </div>
     </div>
   );
 }
 
 export default App;
 
-const ResetFilterButton = styled.h1`
+const Title = styled.h2`
+  color: #003479;
+`;
+
+const ResetFilterButton = styled.h4`
   text-decoration: underline;
   cursor: pointer;
+  color: #003479;
+`;
+
+const FilterContainer = styled.div`
+  background-color: #f4f4f4;
 `;
