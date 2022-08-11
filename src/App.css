@@ -91,6 +91,9 @@ html {
   .responsive {
     text-align: center;
   }
+  .App {
+    margin-left: 10px;
+  }
 }
 
 @keyframes App-logo-spin {
