@@ -70,6 +70,7 @@ export default TodoList;
 
 const Container = styled.div`
   background-color: #f4f4f4;
+  margin-bottom: 100px;
 `;
 const TitleContainer = styled.div`
   margin-top: 10px;
