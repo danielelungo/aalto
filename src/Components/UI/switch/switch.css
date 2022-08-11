@@ -38,3 +38,9 @@
 .react-switch-label:active .react-switch-button {
   width: 60px;
 }
+
+@media screen and (max-width: 600px) {
+  .react-switch-label {
+    margin-left: 30%;
+  }
+}
