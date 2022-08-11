@@ -6,7 +6,7 @@ import { Loader } from "./Components/loader";
 import SearchBar from "./Components/searchBar";
 import SelectUserId from "./Components/selectUserId";
 import TodoList from "./Components/todoList";
-import { TodoData } from "./types";
+import { TodoData } from "./Types/types";
 
 function App() {
   const [todo, setTodo] = useState<TodoData[]>([]);

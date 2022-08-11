@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from "react";
 import styled from "styled-components";
 import { Title } from "../Css/commonStyledComponents";
-import { TodoData } from "../types";
+import { TodoData } from "../Types/types";
 import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
