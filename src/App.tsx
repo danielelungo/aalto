@@ -15,13 +15,25 @@ function App() {
   const [filterCompleted, seFilterCompleted] = useState<boolean>(false);
   const [filterData, setFilterData] = useState<TodoData[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   async function fetchData() {
-    setloading(true);
-    const data = await fetch("https://jsonplaceholder.typicode.com/todos");
-    const res = await data.json();
-    setTodo(res);
-    setloading(false);
+    try {
+      setloading(true);
+      const data: Response = await fetch(
+        "https://jsonplaceholder.typicode.com/todos"
+      );
+      if (!data.ok) {
+        throw Error("Could not fetch the data");
+      }
+      const res = await data.json();
+
+      setTodo(res);
+      setloading(false);
+      setError("");
+    } catch (error: any) {
+      setError(error.message);
+    }
   }
 
   useEffect(() => {
@@ -88,12 +100,14 @@ function App() {
           />
           <ResetFilterButton onClick={onReset}>Reset filters</ResetFilterButton>
         </FilterContainer>
-        {loading ? (
+        {error ? (
+          <ErrorTitle>{error}</ErrorTitle>
+        ) : loading ? (
           <Loader />
         ) : filterData.length ? (
           <TodoList filteredData={filterData} />
         ) : (
-          <NotFound className="notFound">No results found</NotFound>
+          <ErrorTitle className="notFound">No results found</ErrorTitle>
         )}
       </div>
       <Footer className="footer">
@@ -137,7 +151,7 @@ const Footer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const NotFound = styled.div`
+const ErrorTitle = styled.div`
   font-size: 3rem;
   color: #003479;
   text-align: center;
