@@ -6,6 +6,7 @@
 html {
   position: relative;
   min-height: 100%;
+  font-family: "Karbon";
 }
 
 @media (prefers-reduced-motion: no-preference) {
