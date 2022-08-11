@@ -1,6 +1,7 @@
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import styled from "styled-components";
 import { Title } from "../Css/commonStyledComponents";
+import "../App.css";
 
 interface SelectUserIdProps {
   selectedUserId: string;
@@ -12,7 +13,7 @@ const SelectUserId: FunctionComponent<SelectUserIdProps> = ({
   setSelectedUserId,
 }) => {
   return (
-    <Container>
+    <Container className="responsive">
       <Title>SELECT USER ID</Title>
       <Select
         value={selectedUserId}

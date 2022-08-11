@@ -2,6 +2,7 @@ import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import styled from "styled-components";
 import { Title } from "../Css/commonStyledComponents";
 import Switch from "./UI/switch/switch";
+import "../App.css";
 
 interface CompletedFilterProps {
   filterCompleted: boolean;
@@ -13,7 +14,7 @@ const CompletedFilter: FunctionComponent<CompletedFilterProps> = ({
   seFilterCompleted,
 }) => {
   return (
-    <Container>
+    <Container className="responsive">
       <Title>COMPLETED</Title>
       <Switch
         onColor="#644c79"

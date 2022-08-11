@@ -88,6 +88,9 @@ html {
     height: 50px;
     padding: 15px;
   }
+  .responsive {
+    text-align: center;
+  }
 }
 
 @keyframes App-logo-spin {
