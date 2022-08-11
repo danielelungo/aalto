@@ -21,7 +21,7 @@ const SearchBar: FunctionComponent<SearchBarProps> = ({
   return (
     <Container>
       <Button>
-        <FaSistrix onClick={onSearch as any} color="white" size="35px" />
+        <FaSistrix onClick={onSearch as () => void} color="white" size="35px" />
       </Button>
       <form onSubmit={onSearch}>
         <Input
